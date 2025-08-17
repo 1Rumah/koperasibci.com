@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+}
+
+enum LoanStatus {
+  DALAM_PEMERIKSAAN
+  DISETUJUI
+  DITOLAK
+}
+
+enum SavType {
+  POKOK
+  WAJIB
+  SUKARELA
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  googleId    String?   @unique
+  email       String    @unique
+  name        String?
+  role        Role      @default(MEMBER)
+  memberCode  String?
+  phone       String?
+  createdAt   DateTime  @default(now())
+  loans       Loan[]
+  savings     Saving[]
+}
+
+model Loan {
+  id          Int         @id @default(autoincrement())
+  userId      Int
+  user        User        @relation(fields: [userId], references: [id])
+  memberCode  String?
+  fullName    String
+  ktp         String
+  phone       String
+  address     String
+  amount      Int
+  tenor       Int
+  purpose     String
+  desc        String?
+  signature   String?
+  status      LoanStatus  @default(DALAM_PEMERIKSAAN)
+  signName    String?
+  signDate    DateTime?
+  createdAt   DateTime    @default(now())
+}
+
+model Saving {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  savType     SavType
+  memberCode  String?
+  fullName    String
+  amount      Int
+  method      String
+  note        String?
+  createdAt   DateTime  @default(now())
+}
