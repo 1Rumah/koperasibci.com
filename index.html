@@ -99,13 +99,33 @@
   .kpi .box{background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:12px}
   .kpi .n{font-weight:900; font-size:20px}
 </style>
+<!-- Tambahan CSS untuk preloader -->
+<style>
+  #preloader {
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    z-index:99999;
+  }
+  #preloader img {
+    width:500px; height:500px;
+  }
+  
+</style>
+
 </head>
 <body>
+
+
+
+
+
 <header>
   <div class="topbar">
     <div class="brand">
       <!-- Logo lama -->
-       <img src="logo.png" style="height:60px;">
+       <img src="logo.gif" style="height:60px;">
 
       <div>Koperasi Produsen • Bogor Cassava Industri</div>
     </div>
@@ -690,6 +710,22 @@ document.getElementById('previewPDF').onclick = ()=>{
 refreshKPIs(); renderLoanTable(); renderSavTable();
 </script>
 
+<div id="preloader">
+  <img src="preloader.gif" alt="Loading...">
+</div>
+
+<script>
+  window.addEventListener("load", function(){
+    setTimeout(function(){
+      // fade out preloader
+      document.getElementById("preloader").style.opacity = "0";
+      setTimeout(function(){
+        document.getElementById("preloader").style.display = "none";
+        document.body.classList.add("loaded"); // munculkan body
+      }, 600); // waktu tunggu sama dengan transition preloader
+    }, 2000); // delay 2 detik
+  });
+</script>
 
 
 </body>
