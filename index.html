@@ -40,6 +40,20 @@
     .search{max-width:260px}
     .note{font-size:12px;color:#93a3bb}
   </style>
+
+	<style>
+  #preloader {
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    z-index:99999;
+  }
+  #preloader img {
+    width:500px; height:500px;
+  }
+  
+</style>
 </head>
 <body>
   <header>
@@ -318,6 +332,24 @@
       }catch(e){ body.innerHTML='<tr><td colspan="7">Tidak bisa terhubung ke API</td></tr>'; }
     }
   </script>
-  
+  </script>
+
+<div id="preloader">
+  <img src="preloader.gif" alt="Loading...">
+</div>
+
+<script>
+  window.addEventListener("load", function(){
+    setTimeout(function(){
+      // fade out preloader
+      document.getElementById("preloader").style.opacity = "0";
+      setTimeout(function(){
+        document.getElementById("preloader").style.display = "none";
+        document.body.classList.add("loaded"); // munculkan body
+      }, 600); // waktu tunggu sama dengan transition preloader
+    }, 2000); // delay 2 detik
+  });
+</script>
 </body>
 </html>
+
