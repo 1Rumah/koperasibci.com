@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Koperasi BCI – Form, Dasbor Anggota & Admin</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root{--bg:#0b1220;--panel:#0f172a;--line:#1f2937;--muted:#93a3bb;--brand:#22c55e;--danger:#ef4444}
+    *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:#e5e7eb}
+    header{position:sticky;top:0;background:rgba(11,18,32,.75);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
+    .wrap{max-width:1200px;margin:0 auto;padding:18px}
+    h1{margin:6px 0 2px;font-size:22px} .sub{font-size:13px;color:var(--muted)}
+    .tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
+    .tabs button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#101827;color:#cbd5e1;cursor:pointer}
+    .tabs button.active{background:#1f2937;color:#fff;border-color:#334155}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:980px){.grid-2{grid-template-columns:1.2fr .8fr}}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+    label{display:block;margin:8px 0 6px;color:#cbd5e1}
+    input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid #334155;background:#0b1324;color:#e5e7eb}
+    textarea{min-height:96px}
+    .row{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:720px){.row{grid-template-columns:1fr 1fr}}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #334155;background:#111827;color:#e5e7eb;cursor:pointer}
+    .btn.primary{background:#16a34a;border-color:#16a34a;color:#fff}
+    .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+    .muted{color:var(--muted)}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+    th{color:#9fb0c8;font-weight:600}
+    .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .kpi{background:#0f172a;border:1px solid var(--line);border-radius:14px;padding:16px}
+    .kpi h3{margin:0 0 4px;font-size:14px;color:#9fb0c8}
+    .kpi .big{font-size:26px;font-weight:700}
+    .hidden{display:none}
+    canvas{border:1px dashed #334155;border-radius:8px;background:#fff}
+    .right{display:flex;gap:8px;align-items:center}
+    .tools{display:flex;gap:8px;flex-wrap:wrap}
+    .search{max-width:260px}
+    .note{font-size:12px;color:#93a3bb}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+	 <img src="logo.gif" style="height:60px;">
+      <h1>Koperasi Produsen Bogor Cassava Industri</h1>
+      <div class="sub">Form pendaftaran, dasbor anggota & admin – terhubung Google Spreadsheet, output PNG/PDF A4 dengan kop surat</div>
+      <div class="tabs">
+        <button id="tabForm" class="active">Formulir Anggota</button>
+        <button id="tabMember">Dasbor Anggota</button>
+        <button id="tabAdmin">Dasbor Admin</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ================= FORMULIR ANGGOTA ================= -->
+    <section id="secForm" class="grid">
+      <div class="card">
+        <h2>Formulir Pendaftaran Anggota</h2>
+        <p class="muted">Isi sesuai KTP, tanda tangani pada kotak. Setelah submit, sistem menyimpan data ke Spreadsheet & membuat surat keanggotaan di atas template PNG.</p>
+        <form id="formPendaftaran">
+          <div class="row">
+            <div>
+              <label>Tanggal Aktivasi (otomatis)</label>
+              <input name="tanggalAktivasi" type="text" readonly />
+            </div>
+            <div>
+              <label>ID Anggota (otomatis)</label>
+              <input name="idAnggota" type="text" readonly />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>Nama Lengkap</label>
+              <input name="nama" required placeholder="Nama sesuai KTP" />
+            </div>
+            <div>
+              <label>NIK</label>
+              <input name="nik" required placeholder="16 digit" />
+            </div>
+          </div>
+          <label>Alamat Lengkap</label>
+          <textarea name="alamat" required placeholder="Alamat sesuai KTP"></textarea>
+          <div class="row">
+            <div>
+              <label>Tempat Lahir</label>
+              <input name="tempatLahir" required />
+            </div>
+            <div>
+              <label>Tanggal Lahir</label>
+              <input name="tanggalLahir" type="date" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>No Telepon</label>
+              <input name="nohp" required placeholder="08xxxxxxxxxx" />
+            </div>
+            <div>
+              <label>Email</label>
+              <input name="email" type="email" required placeholder="email@contoh.com" />
+            </div>
+          </div>
+
+          <label>Tanda Tangan Digital (mouse/layar sentuh)</label>
+          <canvas id="ttdPad" width="480" height="170"></canvas>
+          <div class="tools" style="margin:8px 0 0">
+            <button type="button" class="btn" id="undoTTD">Undo</button>
+            <button type="button" class="btn danger" id="clearTTD">Bersihkan</button>
+          </div>
+
+          <div class="tools" style="margin-top:12px">
+            <button type="submit" class="btn primary">Kirim ke Spreadsheet & Siapkan Surat</button>
+            <span id="status" class="muted"></span>
+          </div>
+        </form>
+
+        <div id="resultBox" class="card hidden" style="margin-top:14px">
+          <h3>Unduh Surat Keanggotaan</h3>
+          <p id="resultText" class="muted">Surat siap diunduh.</p>
+          <div class="tools">
+            <button class="btn" id="btnPreview">Preview</button>
+            <button class="btn" id="btnDownloadPNG">Download PNG</button>
+            <button class="btn" id="btnDownloadPDF">Download PDF</button>
+          </div>
+          <div style="margin-top:10px" class="hidden" id="previewWrap"><canvas id="previewCanvas" style="max-width:100%"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DASHBOR ANGGOTA ================= -->
+    <section id="secMember" class="hidden">
+      <div class="card">
+        <h2>Dasbor Anggota</h2>
+        <p class="muted">Masuk dengan ID Anggota & Email untuk melihat data Anda dan mengunduh surat.</p>
+        <div class="row">
+          <input id="mId" placeholder="ID Anggota" />
+          <input id="mEmail" type="email" placeholder="Email" />
+        </div>
+        <div class="tools" style="margin-top:8px">
+          <button class="btn primary" id="btnMemberLogin">Masuk</button>
+          <span id="mStatus" class="muted"></span>
+        </div>
+        <div id="memberBox" class="card hidden" style="margin-top:14px"></div>
+      </div>
+    </section>
+
+    <!-- ================= DASHBOR ADMIN ================= -->
+    <section id="secAdmin" class="hidden">
+      <div class="card">
+        <div class="right" style="justify-content:space-between;flex-wrap:wrap">
+          <h2 style="margin:0">Dasbor Admin</h2>
+          <div class="right">
+            <input id="adminKey" class="search" placeholder="Password admin" />
+            <button class="btn" id="btnLoad">Muat Data</button>
+          </div>
+        </div>
+        <div class="kpis" style="margin-top:10px">
+          <div class="kpi"><h3>Jumlah Anggota</h3><div class="big" id="kpiAnggota">-</div></div>
+          <div class="kpi"><h3>Terakhir Diperbarui</h3><div class="big" id="kpiUpdate">-</div></div>
+        </div>
+        <div style="overflow:auto;margin-top:10px">
+          <table>
+            <thead><tr>
+              <th>#</th><th>ID</th><th>Nama</th><th>NIK</th><th>No HP</th><th>Email</th><th>Aksi</th>
+            </tr></thead>
+            <tbody id="tblBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const { jsPDF } = window.jspdf;
+
+    // =================== KONFIG ===================
+    // Ganti dengan URL Web App Google Apps Script Anda (tanpa trailing slash)
+    const API_BASE = "https://script.google.com/macros/s/AKfycbyiou53qL3lL6M6Fj4DKGi10ipZF_kapxF8kMwHIUegp6Pi7mgU9fEi6JDO4YECyxn_Rg/exec";
+
+    // File template PNG harus tersedia di host yg sama, gunakan nama persis berikut
+    const TEMPLATE_IMG = "FORMULIR ANGGOTA KOPERASI.png";
+
+    // =================== NAV TAB ===================
+    const tabForm = document.getElementById('tabForm');
+    const tabMember = document.getElementById('tabMember');
+    const tabAdmin = document.getElementById('tabAdmin');
+    const secForm = document.getElementById('secForm');
+    const secMember = document.getElementById('secMember');
+    const secAdmin = document.getElementById('secAdmin');
+
+    function show(section){
+      [secForm,secMember,secAdmin].forEach(s=>s.classList.add('hidden'));
+      section.classList.remove('hidden');
+      [tabForm,tabMember,tabAdmin].forEach(b=>b.classList.remove('active'));
+      if(section===secForm) tabForm.classList.add('active');
+      if(section===secMember) tabMember.classList.add('active');
+      if(section===secAdmin) tabAdmin.classList.add('active');
+    }
+    tabForm.onclick=()=>show(secForm); tabMember.onclick=()=>show(secMember); tabAdmin.onclick=()=>show(secAdmin);
+
+    // =================== INIT FORM ===================
+    const form = document.getElementById('formPendaftaran');
+    const canvasTTD = document.getElementById('ttdPad');
+    const tctx = canvasTTD.getContext('2d');
+    let drawing=false, paths=[]; // untuk undo
+    function start(e){drawing=true; tctx.beginPath(); const r=canvasTTD.getBoundingClientRect(); tctx.moveTo((e.touches?e.touches[0].clientX:e.clientX)-r.left,(e.touches?e.touches[0].clientY:e.clientY)-r.top)}
+    function draw(e){if(!drawing)return; tctx.lineWidth=2; tctx.lineCap='round'; tctx.strokeStyle='#000'; const r=canvasTTD.getBoundingClientRect(); tctx.lineTo((e.touches?e.touches[0].clientX:e.clientX)-r.left,(e.touches?e.touches[0].clientY:e.clientY)-r.top); tctx.stroke();}
+    function end(){if(!drawing) return; drawing=false; paths.push(canvasTTD.toDataURL())}
+    canvasTTD.addEventListener('mousedown',start); canvasTTD.addEventListener('mousemove',draw); canvasTTD.addEventListener('mouseup',end); canvasTTD.addEventListener('mouseout',end);
+    canvasTTD.addEventListener('touchstart',start,{passive:true}); canvasTTD.addEventListener('touchmove',draw,{passive:true}); canvasTTD.addEventListener('touchend',end);
+    document.getElementById('clearTTD').onclick=()=>{tctx.clearRect(0,0,canvasTTD.width,canvasTTD.height); paths=[]};
+    document.getElementById('undoTTD').onclick=()=>{ if(paths.length){ const last=paths.pop(); const img=new Image(); img.onload=()=>{ tctx.clearRect(0,0,canvasTTD.width,canvasTTD.height); tctx.drawImage(img,0,0); }; img.src=paths[paths.length-1]||''; } };
+
+    // set tanggal & id
+    document.querySelector("input[name='tanggalAktivasi']").value = new Date().toLocaleDateString('id-ID');
+    document.querySelector("input[name='idAnggota']").value = 'ID-'+Date.now();
+
+    // helper wrap text
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+      const words = (text||'').split(' '); let line = '';
+      for(let n=0;n<words.length;n++){
+        const test = line + words[n] + ' ';
+        if(ctx.measureText(test).width > maxWidth && n>0){ ctx.fillText(line, x, y); line = words[n] + ' '; y += lineHeight; }
+        else { line = test; }
+      }
+      ctx.fillText(line, x, y); return y+lineHeight;
+    }
+
+    // simpan hasil form utk download
+    let dataGlobal = null;
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const fd=new FormData(form);
+      dataGlobal={
+        tanggalAktivasi: fd.get('tanggalAktivasi'), idAnggota: fd.get('idAnggota'), nama: fd.get('nama'), nik: fd.get('nik'), alamat: fd.get('alamat'), tempatLahir: fd.get('tempatLahir'), tanggalLahir: fd.get('tanggalLahir'), nohp: fd.get('nohp'), email: fd.get('email'), ttd: canvasTTD.toDataURL('image/png')
+      };
+
+      // kirim ke Apps Script
+      const status = document.getElementById('status');
+      status.textContent = 'Mengirim ke Spreadsheet…';
+      try{
+        const res = await fetch(API_BASE, {method:'POST', body: JSON.stringify({action:'submit', ...dataGlobal})});
+        const json = await res.json();
+        if(json.status==='ok'){ status.textContent='Terkirim. Surat siap.'; } else { status.textContent='Gagal: '+(json.message||''); }
+      }catch(err){ status.textContent='Tidak dapat terhubung ke API (cek API_BASE).'; }
+
+      document.getElementById('resultBox').classList.remove('hidden');
+      document.getElementById('resultText').textContent = `Surat untuk ${dataGlobal.nama} siap diunduh.`;
+    });
+
+    // gambar ke kanvas template
+    function paintToCanvas(data){
+      return new Promise((resolve)=>{
+        const img=new Image(); img.src=TEMPLATE_IMG; img.onload=()=>{
+          const c=document.createElement('canvas'); c.width=794; c.height=1123; const ctx=c.getContext('2d');
+          ctx.drawImage(img,0,0,c.width,c.height);
+          ctx.fillStyle='#000'; ctx.font='14px Arial';
+          // POSISI DISAMAKAN DENGAN PNG YANG ANDA BERIKAN
+          ctx.fillText(data.tanggalAktivasi, 235, 165); // Tanggal Aktivasi (setelah titik dua)
+          ctx.fillText(data.idAnggota,      235, 185); // ID Anggota
+          ctx.fillText(data.nama,           180, 245); // Nama
+          ctx.fillText(data.nik,            180, 265); // NIK
+          // Alamat multi-baris
+          ctx.fillText(' ', 180, 285); // jaga garis awal
+          let y=wrapText(ctx, data.alamat, 180, 285, 470, 18);
+          ctx.fillText(data.tempatLahir,    180, y+10); // tempat
+          ctx.fillText(new Date(data.tanggalLahir).toLocaleDateString('id-ID'), 180, y+30); // tgl lahir
+          ctx.fillText(data.nohp,           180, y+50); // no hp
+          ctx.fillText(data.email,          180, y+70); // email
+          // TTD anggota – posisi kanan bawah
+          const s=new Image(); s.src=data.ttd; s.onload=()=>{ ctx.drawImage(s, 520, 950, 200, 80); resolve(c); };
+        };
+      });
+    }
+
+    // tombol preview / download
+    document.getElementById('btnPreview').onclick=async ()=>{
+      if(!dataGlobal) return; const c=await paintToCanvas(dataGlobal); const wrap=document.getElementById('previewWrap'); const prev=document.getElementById('previewCanvas'); prev.width=c.width; prev.height=c.height; const pctx=prev.getContext('2d'); pctx.drawImage(c,0,0); wrap.classList.remove('hidden');
+    };
+    document.getElementById('btnDownloadPNG').onclick=async ()=>{
+      if(!dataGlobal) return; const c=await paintToCanvas(dataGlobal); const a=document.createElement('a'); a.download=`Surat_${dataGlobal.nama}.png`; a.href=c.toDataURL('image/png'); a.click();
+    };
+    document.getElementById('btnDownloadPDF').onclick=async ()=>{
+      if(!dataGlobal) return; const c=await paintToCanvas(dataGlobal); const pdf=new jsPDF('p','pt','a4'); pdf.addImage(c.toDataURL('image/png'),'PNG',0,0,595,842); pdf.save(`Surat_${dataGlobal.nama}.pdf`);
+    };
+
+    // =================== MEMBER DASHBOARD ===================
+    document.getElementById('btnMemberLogin').onclick=async ()=>{
+      const id=document.getElementById('mId').value.trim(); const email=document.getElementById('mEmail').value.trim(); const mStatus=document.getElementById('mStatus'); mStatus.textContent='Memuat…';
+      try{
+        const r=await fetch(`${API_BASE}?action=getById&id=${encodeURIComponent(id)}&email=${encodeURIComponent(email)}`); const j=await r.json();
+        if(j.status==='ok'&&j.data){ const d=j.data; dataGlobal=d; const box=document.getElementById('memberBox'); box.classList.remove('hidden'); box.innerHTML=`<b>${d.nama}</b><br><span class="muted">${d.email}</span><div class="tools" style="margin-top:8px"><button class="btn" id="mPrev">Preview</button><button class="btn" id="mPNG">Download PNG</button><button class="btn" id="mPDF">Download PDF</button></div>`; mStatus.textContent='';
+          document.getElementById('mPrev').onclick=()=>document.getElementById('btnPreview').click();
+          document.getElementById('mPNG').onclick=()=>document.getElementById('btnDownloadPNG').click();
+          document.getElementById('mPDF').onclick=()=>document.getElementById('btnDownloadPDF').click();
+        } else { mStatus.textContent=j.message||'Data tidak ditemukan'; }
+      }catch(e){ mStatus.textContent='Gagal terhubung ke API'; }
+    };
+
+    // =================== ADMIN DASHBOARD ===================
+    document.getElementById('btnLoad').onclick=loadAll;
+    async function loadAll(){
+      const key=document.getElementById('adminKey').value||''; const body=document.getElementById('tblBody'); body.innerHTML='<tr><td colspan="7">Memuat…</td></tr>';
+      try{
+        const r=await fetch(`${API_BASE}?action=getAll&key=${encodeURIComponent(key)}`); const j=await r.json();
+        if(j.status!=='ok'){ body.innerHTML = `<tr><td colspan="7">${j.message||'Gagal memuat'}</td></tr>`; return; }
+        const rows=j.rows||[]; document.getElementById('kpiAnggota').textContent=rows.length; document.getElementById('kpiUpdate').textContent=new Date().toLocaleString('id-ID');
+        body.innerHTML=''; rows.forEach((d,i)=>{
+          const tr=document.createElement('tr');
+          tr.innerHTML=`<td>${i+1}</td><td>${d.idAnggota||''}</td><td>${d.nama||''}</td><td>${d.nik||''}</td><td>${d.nohp||''}</td><td>${d.email||''}</td><td><button class="btn" data-i="${i}">Unduh Surat</button></td>`; body.appendChild(tr);
+        });
+        body.querySelectorAll('button[data-i]').forEach(btn=>btn.onclick=()=>{ const idx=+btn.getAttribute('data-i'); dataGlobal=rows[idx]; document.getElementById('btnDownloadPDF').click(); });
+      }catch(e){ body.innerHTML='<tr><td colspan="7">Tidak bisa terhubung ke API</td></tr>'; }
+    }
+  </script>
+  
+</body>
+</html>
