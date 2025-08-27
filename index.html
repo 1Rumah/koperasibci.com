@@ -26,14 +26,14 @@
   <title>Koperasi BCI – Form, Dasbor Anggota & Admin</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root{--bg:#e8f8ec;--panel:#0f172a;--line:#1f2937;--muted:#93a3bb;--brand:#22c55e;--danger:#ef4444}
+  :root{--bg:#0b1220;--panel:#0f172a;--line:#1f2937;--muted:#93a3bb;--brand:#22c55e;--danger:#ef4444}
     *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:#e5e7eb}
     header{position:sticky;top:0;background:rgba(11,18,32,.75);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
     .wrap{max-width:1200px;margin:0 auto;padding:18px}
     h1{margin:6px 0 2px;font-size:22px} .sub{font-size:13px;color:var(--muted)}
     .tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
     .tabs button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#101827;color:#cbd5e1;cursor:pointer}
-    .tabs button.active{background:#e8f8ec;color:#fff;border-color:#334155}
+    .tabs button.active{background:#1f2937;color:#fff;border-color:#334155}
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
     @media(min-width:980px){.grid-2{grid-template-columns:1.2fr .8fr}}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
@@ -43,14 +43,14 @@
     .row{display:grid;grid-template-columns:1fr;gap:12px}
     @media(min-width:720px){.row{grid-template-columns:1fr 1fr}}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #334155;background:#111827;color:#e5e7eb;cursor:pointer}
-    .btn.primary{background:#e8f8ec;border-color:#16a34a;color:#fff}
+    .btn.primary{background:#16a34a;border-color:#16a34a;color:#fff}
     .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
     .muted{color:var(--muted)}
     table{width:100%;border-collapse:collapse}
     th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
     th{color:#9fb0c8;font-weight:600}
     .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .kpi{background:#e8f8ec;border:1px solid var(--line);border-radius:14px;padding:16px}
+    .kpi{background:#0f172a;border:1px solid var(--line);border-radius:14px;padding:16px}
     .kpi h3{margin:0 0 4px;font-size:14px;color:#9fb0c8}
     .kpi .big{font-size:26px;font-weight:700}
     .hidden{display:none}
@@ -374,6 +374,7 @@
 </script>
 </body>
 </html>
+
 
 
 
