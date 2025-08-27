@@ -1,39 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Koperasi Produsen Bogor Cassava Industri</title>
-  
-  <!-- Favicon (icon di tab browser) -->
-  <link rel="icon" type="image/png" href="https://1rumah.github.io/koperasibci.com/Icon-x.png">
-
-  <!-- Open Graph (untuk preview saat dibagikan ke media sosial) -->
-  <meta property="og:title" content="Koperasi Produsen Bogor Cassava Industri">
-  <meta property="og:description" content="Koperasi Produsen Bogor Cassava Industri yang menghimpun para petani singkong agar mendapat kepastian harga jual dan bersinergi dalam pengembangan serta panen singkong dengan harga stabil.">
-  <meta property="og:image" content="https://1rumah.github.io/koperasibci.com/Icon-x.png">
-  <meta property="og:url" content="https://1rumah.github.io/koperasibci.com">
-  <meta property="og:type" content="website">
-
-  <!-- Untuk Twitter Card (opsional, biar lebih bagus kalau dibagikan ke Twitter/X) -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Koperasi Produsen Bogor Cassava Industri">
-  <meta name="twitter:description" content="Koperasi Produsen Bogor Cassava Industri yang menghimpun para petani singkong agar mendapat kepastian harga jual dan bersinergi dalam pengembangan serta panen singkong dengan harga stabil.">
-  <meta name="twitter:image" content="https://1rumah.github.io/koperasibci.com/Icon-x.png
-<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Koperasi BCI – Form, Dasbor Anggota & Admin</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
- <style>
-    :root{--bg:#e8f8ec;--panel:#0f172a;--line:#1f2937;--muted:#93a3bb;--brand:#22c55e;--danger:#ef4444}
+  <style>
+    :root{--bg:#0b1220;--panel:#0f172a;--line:#1f2937;--muted:#93a3bb;--brand:#22c55e;--danger:#ef4444}
     *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:#e5e7eb}
     header{position:sticky;top:0;background:rgba(11,18,32,.75);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:20}
     .wrap{max-width:1200px;margin:0 auto;padding:18px}
     h1{margin:6px 0 2px;font-size:22px} .sub{font-size:13px;color:var(--muted)}
     .tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
     .tabs button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#101827;color:#cbd5e1;cursor:pointer}
-    .tabs button.active{background:#e8f8ec;color:#fff;border-color:#334155}
+    .tabs button.active{background:#1f2937;color:#fff;border-color:#334155}
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
     @media(min-width:980px){.grid-2{grid-template-columns:1.2fr .8fr}}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
@@ -43,14 +23,14 @@
     .row{display:grid;grid-template-columns:1fr;gap:12px}
     @media(min-width:720px){.row{grid-template-columns:1fr 1fr}}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid #334155;background:#111827;color:#e5e7eb;cursor:pointer}
-    .btn.primary{background:#e8f8ec;border-color:#16a34a;color:#fff}
+    .btn.primary{background:#16a34a;border-color:#16a34a;color:#fff}
     .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
     .muted{color:var(--muted)}
     table{width:100%;border-collapse:collapse}
     th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
     th{color:#9fb0c8;font-weight:600}
     .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .kpi{background:#e8f8ec;border:1px solid var(--line);border-radius:14px;padding:16px}
+    .kpi{background:#0f172a;border:1px solid var(--line);border-radius:14px;padding:16px}
     .kpi h3{margin:0 0 4px;font-size:14px;color:#9fb0c8}
     .kpi .big{font-size:26px;font-weight:700}
     .hidden{display:none}
@@ -60,23 +40,8 @@
     .search{max-width:260px}
     .note{font-size:12px;color:#93a3bb}
   </style>
-
-	<style>
-  #preloader {
-    position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    background:#fff;
-    display:flex; align-items:center; justify-content:center;
-    z-index:99999;
-  }
-  #preloader img {
-    width:500px; height:500px;
-  }
-  
-</style>
 </head>
 <body>
-  <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="7a4cfef2-d645-4485-9847-c37185ca2c07";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
   <header>
     <div class="wrap">
 	 <img src="logo.gif" style="height:60px;">
@@ -85,8 +50,7 @@
       <div class="tabs">
         <button id="tabForm" class="active">Formulir Anggota</button>
         <button id="tabMember">Dasbor Anggota</button>
-        <button onclick="window.location.href='Tentang.html'">About BCI</button>
-
+        <button id="tabAdmin">Dasbor Admin</button>
       </div>
     </div>
   </header>
@@ -354,33 +318,6 @@
       }catch(e){ body.innerHTML='<tr><td colspan="7">Tidak bisa terhubung ke API</td></tr>'; }
     }
   </script>
-  </script>
-
-<div id="preloader">
-  <img src="preloader.gif" alt="Loading...">
-</div>
-
-<script>
-  window.addEventListener("load", function(){
-    setTimeout(function(){
-      // fade out preloader
-      document.getElementById("preloader").style.opacity = "0";
-      setTimeout(function(){
-        document.getElementById("preloader").style.display = "none";
-        document.body.classList.add("loaded"); // munculkan body
-      }, 600); // waktu tunggu sama dengan transition preloader
-    }, 2000); // delay 2 detik
-  });
-</script>
+  
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
