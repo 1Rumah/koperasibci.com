@@ -39,6 +39,17 @@
     .tools{display:flex;gap:8px;flex-wrap:wrap}
     .search{max-width:260px}
     .note{font-size:12px;color:#93a3bb}
+	
+	canvas {
+  border: 1px dashed #334155;
+  border-radius: 8px;
+  background: #fff;
+  width: 100%;           /* responsive */
+  max-width: 480px;      /* batas ukuran */
+  height: 170px;         /* fixed tinggi */
+  touch-action: none;    /* cegah scroll/zoom saat menggambar */
+}
+
   </style>
 </head>
 <body>
@@ -46,7 +57,7 @@
     <div class="wrap">
 	 <img src="logo.gif" style="height:60px;">
       <h1>Koperasi Produsen Bogor Cassava Industri</h1>
-      <div class="sub">Form pendaftaran, dasbor anggota & admin – terhubung Google Spreadsheet, output PNG/PDF A4 dengan kop surat</div>
+      <div class="sub">Form pendaftaran, dasbor anggota & admin, output PNG/PDF A4 dengan kop surat</div>
       <div class="tabs">
         <button id="tabForm" class="active">Formulir Anggota</button>
         <button id="tabMember">Dasbor Anggota</button>
@@ -108,19 +119,19 @@
           <label>Tanda Tangan Digital (mouse/layar sentuh)</label>
           <canvas id="ttdPad" width="480" height="170"></canvas>
           <div class="tools" style="margin:8px 0 0">
-            <button type="button" class="btn" id="undoTTD">Undo</button>
-            <button type="button" class="btn danger" id="clearTTD">Bersihkan</button>
+            <button type="button" class="btn" id="undoTTD">Ulangi</button>
+            <button type="button" class="btn danger" id="clearTTD">Hapus Ttd</button>
           </div>
 
           <div class="tools" style="margin-top:12px">
-            <button type="submit" class="btn primary">Kirim ke Spreadsheet & Siapkan Surat</button>
+            <button type="submit" class="btn primary">Kirim & Siapkan Surat</button>
             <span id="status" class="muted"></span>
           </div>
         </form>
 
         <div id="resultBox" class="card hidden" style="margin-top:14px">
-          <h3>Unduh Surat Keanggotaan</h3>
-          <p id="resultText" class="muted">Surat siap diunduh.</p>
+          <h3>Download Surat Keanggotaan</h3>
+          <p id="resultText" class="muted">Surat siap Download.</p>
           <div class="tools">
             <button class="btn" id="btnPreview">Preview</button>
             <button class="btn" id="btnDownloadPNG">Download PNG</button>
@@ -211,7 +222,7 @@
     function draw(e){if(!drawing)return; tctx.lineWidth=2; tctx.lineCap='round'; tctx.strokeStyle='#000'; const r=canvasTTD.getBoundingClientRect(); tctx.lineTo((e.touches?e.touches[0].clientX:e.clientX)-r.left,(e.touches?e.touches[0].clientY:e.clientY)-r.top); tctx.stroke();}
     function end(){if(!drawing) return; drawing=false; paths.push(canvasTTD.toDataURL())}
     canvasTTD.addEventListener('mousedown',start); canvasTTD.addEventListener('mousemove',draw); canvasTTD.addEventListener('mouseup',end); canvasTTD.addEventListener('mouseout',end);
-    canvasTTD.addEventListener('touchstart',start,{passive:true}); canvasTTD.addEventListener('touchmove',draw,{passive:true}); canvasTTD.addEventListener('touchend',end);
+    canvasTTD.addEventListener('touchstart', (e)=>{ e.preventDefault(); start(e); }, {passive:false}); canvasTTD.addEventListener('touchmove',  (e)=>{ e.preventDefault(); draw(e); },  {passive:false}); canvasTTD.addEventListener('touchend',   (e)=>{ e.preventDefault(); end(e); },   {passive:false});
     document.getElementById('clearTTD').onclick=()=>{tctx.clearRect(0,0,canvasTTD.width,canvasTTD.height); paths=[]};
     document.getElementById('undoTTD').onclick=()=>{ if(paths.length){ const last=paths.pop(); const img=new Image(); img.onload=()=>{ tctx.clearRect(0,0,canvasTTD.width,canvasTTD.height); tctx.drawImage(img,0,0); }; img.src=paths[paths.length-1]||''; } };
 
@@ -246,7 +257,7 @@
       try{
         const res = await fetch(API_BASE, {method:'POST', body: JSON.stringify({action:'submit', ...dataGlobal})});
         const json = await res.json();
-        if(json.status==='ok'){ status.textContent='Terkirim. Surat siap.'; } else { status.textContent='Gagal: '+(json.message||''); }
+        if(json.status==='ok'){ status.textContent='Terkirim. Surat siap.'; } else { status.textContent='Berhasil: '+(json.message||''); }
       }catch(err){ status.textContent='Tidak dapat terhubung ke API (cek API_BASE).'; }
 
       document.getElementById('resultBox').classList.remove('hidden');
@@ -321,4 +332,3 @@
   
 </body>
 </html>
-
