@@ -1,182 +1,79 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cara pendaftaran Koperasi BCI</title>
-
-  <!-- Primary meta -->
-  <meta name="description" content="Meningkatkan kesejahteraan pengrajin singkong — ✅ Memperluas akses permodalan usaha ✅ Mendukung inovasi produk ✅ Memperkuat jejaring usaha bersama" />
-  <link rel="canonical" href="https://1rumah.github.io/koperasibci.com" />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:title"       content="Cara pendaftaran Koperasi BCI" />
-  <meta property="og:description" content="Meningkatkan kesejahteraan pengrajin singkong — ✅ Memperluas akses permodalan usaha ✅ Mendukung inovasi produk ✅ Memperkuat jejaring usaha bersama" />
-  <meta property="og:url"         content="https://1rumah.github.io/koperasibci.com" />
-  <!-- Pastikan gambar bersifat HTTPS dan reachable. Ukuran ideal 1200x630 px -->
-  <meta property="og:image"       content="https://1rumah.github.io/koperasibci.com/Icon-x.png" />
-  <meta property="og:image:alt"   content="Logo / banner Koperasi BCI" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Cara pendaftaran Koperasi BCI" />
-  <meta name="twitter:description" content="Meningkatkan kesejahteraan pengrajin singkong — ✅ Memperluas akses permodalan usaha ✅ Mendukung inovasi produk ✅ Memperkuat jejaring usaha bersama" />
-  <meta name="twitter:image" content="https://1rumah.github.io/koperasibci.com/Icon-x.png" />
-
-  <!-- Favicon (optional) -->
-  <link rel="icon" href="https://1rumah.github.io/koperasibci.com/Icon-x.png" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Koperasi BCI</title>
   <style>
-    :root{
-      --gap:24px;
-      --phone-width: 360px; /* ukuran layar mockup (px) */
-      --phone-height: 780px; /* tinggi mockup */
-      --frame-color: #111;
-      --bg: #f6f7fb;
-      --accent: #007aff;
-      --wrap-max: 1100px;
-    }
-    *{box-sizing:border-box}
-    body{font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin:0; background:var(--bg); color:#222}
-
-    /* header (dari script yang Anda kirim) */
-    header{padding:24px 16px}
-    .wrap{max-width:var(--wrap-max); margin:0 auto; display:flex; align-items:flex-start; gap:16px}
-    .wrap img{height:60px}
-    .wrap h1{margin:0 0 6px 0; font-size:20px}
-    .sub{color:#666}
-    .tabs{margin-top:12px}
-    .tabs button{margin-right:8px; padding:8px 12px; border-radius:8px; border:1px solid #ddd; background:white}
-    .tabs button.active{background:var(--accent); color:white; border-color:transparent}
-
-    /* layout: konten header kiri, mockup hp kanan */
-    .header-row{display:flex; justify-content:space-between; align-items:flex-start; gap:var(--gap); max-width:var(--wrap-max); margin:0 auto}
-    .header-left{flex:1}
-    .header-right{width:fit-content}
-
-    /* phone mockup */
-    .phone-wrap{width:var(--phone-width); height:var(--phone-height); position:relative; display:block}
-    .phone{width:100%; height:100%; border-radius:48px; background:linear-gradient(180deg,#fefefe,#f3f4f7); padding:18px; box-shadow: 0 12px 40px rgba(10,10,20,0.15); position:relative; border:6px solid var(--frame-color);}
-
-    /* notch */
-    .notch{position:absolute; left:50%; transform:translateX(-50%); top:-8px; width:210px; height:26px; background:var(--frame-color); border-bottom-left-radius:12px; border-bottom-right-radius:12px}
-    .speaker{position:absolute; left:50%; transform:translateX(-50%); top:6px; width:52px; height:6px; background:#222; border-radius:4px}
-
-    /* screen area */
-    .screen{position:relative; width:100%; height:100%; background:black; border-radius:32px; overflow:hidden; display:flex; align-items:center; justify-content:center}
-    .screen video{width:100%; height:100%; object-fit:cover; display:block}
-
-    /* small home indicator */
-    .home-indicator{position:absolute; bottom:8px; left:50%; transform:translateX(-50%); width:120px; height:6px; border-radius:999px; background:rgba(255,255,255,0.25)}
-
-    /* responsive: scale down on small screens */
-    @media (max-width:1200px){
-      .phone-wrap{transform:scale(0.95)}
-    }
-    @media (max-width:900px){
-      /* kalau layar sempit, pindah mockup di bawah */
-      .header-row{flex-direction:column; align-items:center}
-      .header-left{order:2}
-      .header-right{order:1}
-      .phone-wrap{transform:scale(0.9)}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html {
+      height: 100%;
+      background: #000;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
     }
 
-    /* pilihan: bingkai warna terang */
-    .phone.light{border-color:#ddd}
-    .phone.light .notch{background:#ddd}
-    .phone.light .speaker{background:#333}
+    /* Frame HP */
+    .phone {
+      width: 100%;
+      height: 100%;
+      border-radius: 40px;
+      border: 10px solid #111;
+      background: linear-gradient(180deg, #0a0a0f, #111);
+      position: relative;
+      box-shadow: 0 0 50px rgba(255,0,0,0.4), inset 0 0 40px rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-    /* label kecil */
-    .mockup-caption{font-size:13px; color:#444; margin-top:8px; text-align:center}
+    /* Efek layar futuristik */
+    .screen {
+      width: 95%;
+      height: 95%;
+      border-radius: 32px;
+      background: radial-gradient(circle at 50% 30%, #111 0%, #000 70%);
+      box-shadow: inset 0 0 80px rgba(255,0,0,0.3), inset 0 0 30px rgba(0,200,255,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Tombol daftar */
+    .btn {
+      padding: 18px 40px;
+      font-size: 22px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #fff;
+      background: red;
+      text-transform: uppercase;
+      text-shadow: 0 0 8px rgba(0,0,0,0.6);
+      box-shadow: 0 0 20px rgba(255,0,0,0.8);
+      animation: blink 1s infinite alternate, pulse 2s infinite;
+    }
+
+    /* Animasi berkedip merah */
+    @keyframes blink {
+      0% { background: red; box-shadow: 0 0 20px rgba(255,0,0,0.8); }
+      100% { background: darkred; box-shadow: 0 0 40px rgba(255,0,0,1); }
+    }
+
+    /* Animasi bernafas */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
   </style>
 </head>
 <body>
-
-  <!-- Anda memberikan header; saya letakkan ulang ke dalam layout -->
-  <header>
-    <div class="wrap header-row">
-      <div class="header-left">
-        <div style="display:flex; align-items:center; gap:12px">
-          <img src="logo.gif" alt="logo">
-          <div>
-            <h1>Jika Sudah Paham Silahkan klik  <button class="btn blink" onclick="window.location.href='halaman2.html'">DAFTAR ANGGOTA</button>Untuk Melanjutkan</h1>
-          </div>
-        </div>
-        <div class="tabs" style="margin-top:14px">
-        
-          
-        </div>
-      </div>
-
-      <!-- MOCKUP HP: berada di sebelah kanan header -->
-      <div class="header-right">
-        <div class="phone-wrap" role="img" aria-label="Mockup iPhone dengan video autoplay">
-          <div class="phone" id="iphoneMockup">
-            <div class="notch"></div>
-            <div class="speaker"></div>
-            <div class="screen">
-              <!-- Video: autoplay perlu muted dan playsinline agar bekerja di mobile -->
-              <video id="mockVideo" muted playsinline autoplay loop preload="metadata" poster="">
-                <!-- Ganti src di bawah dengan file video Anda -->
-                <source src="sample-video.mp4" type="video/mp4">
-                Browser Anda tidak mendukung video.
-              </video>
-              <div class="home-indicator"></div>
-            </div>
-          </div>
-         
-        </div>
-      </div>
+  <div class="phone">
+    <div class="screen">
+      <button class="btn" onclick="window.location.href='halaman2.html'">Daftar Sekarang</button>
     </div>
-  </header>
-
-  <script>
-    // Safety: pastikan video autoplay berjalan (beberapa browser memblokir autoplay kecuali muted)
-    (function(){
-      const v = document.getElementById('mockVideo');
-      function tryPlay(){
-        if(!v) return;
-        v.muted = true;
-        v.setAttribute('playsinline','');
-        const p = v.play();
-        if(p && p.catch){
-          p.catch(()=>{
-            // kalau gagal autoplay, tampilkan overlay kecil untuk mendorong user klik
-            const btn = document.createElement('button');
-            btn.textContent = 'Putar Video';
-            btn.style.position='absolute';
-            btn.style.left='50%'; btn.style.top='50%';
-            btn.style.transform='translate(-50%,-50%)';
-            btn.style.padding='8px 14px'; btn.style.borderRadius='8px';
-            btn.style.border='none'; btn.style.background='rgba(0,0,0,0.6)'; btn.style.color='#fff';
-            btn.onclick = function(){ v.play(); btn.remove(); };
-            document.querySelector('.screen').appendChild(btn);
-          });
-        }
-      }
-      // coba play saat DOM siap
-      if(document.readyState==='complete' || document.readyState==='interactive') tryPlay();
-      else document.addEventListener('DOMContentLoaded', tryPlay);
-    })();
-  </script>
-<script>
-  const v = document.getElementById('mockVideo');
-
-  function enableSoundOnce() {
-    if (!v) return;
-    v.muted = false; // buka mute
-    v.play().catch(() => {}); // coba play ulang
-    document.body.removeEventListener('click', enableSoundOnce);
-  }
-
-  // pasang listener global klik
-  document.body.addEventListener('click', enableSoundOnce);
-</script>
-
+  </div>
 </body>
 </html>
-
-
