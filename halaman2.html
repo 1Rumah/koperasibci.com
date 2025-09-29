@@ -71,7 +71,7 @@
     <section id="secForm" class="grid">
       <div class="card">
         <h2>Formulir Pendaftaran Anggota</h2>
-        <p class="muted">Isi sesuai KTP, tanda tangani pada kotak. Setelah submit, tunggu sistem menyimpan data & membuat surat keanggotaan di atas sampaih data siap "Download pdf".</p>
+        <p class="muted">Isi sesuai KTP, tanda tangani pada kotak. Setelah submit, sistem menyimpan data ke Spreadsheet & membuat surat keanggotaan di atas template PNG.</p>
         <form id="formPendaftaran">
           <div class="row">
             <div>
@@ -183,7 +183,6 @@
     </section>
   </main>
 <button class="btn ghost" onclick="window.location.href='Perkembangan.html'">Perkembabangan BCI</button>
-	<button class="btn ghost" onclick="window.location.href='index.html'">Kemabli ke Tutorial</button>
 
   <script>
     const { jsPDF } = window.jspdf;
@@ -306,8 +305,6 @@
       try{
         const r=await fetch(`${API_BASE}?action=getById&id=${encodeURIComponent(id)}&email=${encodeURIComponent(email)}`); const j=await r.json();
         if(j.status==='ok'&&j.data){ const d=j.data; dataGlobal=d; const box=document.getElementById('memberBox'); box.classList.remove('hidden'); box.innerHTML=`<b>${d.nama}</b><br><span class="muted">${d.email}</span><div class="tools" style="margin-top:8px"><button class="btn" id="mPrev">Preview</button><button class="btn" id="mPNG">Download PNG</button><button class="btn" id="mPDF">Download PDF</button></div>`; mStatus.textContent='';
-          document.getElementById('mPrev').onclick=()=>document.getElementById('btnPreview').click();
-          document.getElementById('mPNG').onclick=()=>document.getElementById('btnDownloadPNG').click();
           document.getElementById('mPDF').onclick=()=>document.getElementById('btnDownloadPDF').click();
         } else { mStatus.textContent=j.message||'Data tidak ditemukan'; }
       }catch(e){ mStatus.textContent='Gagal terhubung ke API'; }
