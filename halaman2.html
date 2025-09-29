@@ -57,7 +57,7 @@
     <div class="wrap">
 	 <img src="logo.gif" style="height:60px;">
       <h1>Koperasi Produsen Bogor Cassava Industri</h1>
-      <div class="sub">Form pendaftaran, dasbor anggota & admin, output PNG/PDF A4 dengan kop surat</div>
+      <div class="sub">Form pendaftaran, dasbor anggota</div>
       <div class="tabs">
         <button id="tabForm" class="active">Formulir Anggota</button>
         <button id="tabMember">Dasbor Anggota</button>
@@ -71,7 +71,7 @@
     <section id="secForm" class="grid">
       <div class="card">
         <h2>Formulir Pendaftaran Anggota</h2>
-        <p class="muted">Isi sesuai KTP, tanda tangani pada kotak. Setelah submit, tunggu sistem menyimpan data & membuat surat keanggotaan di atas sampaih data siap "Download pdf".</p>
+        <p class="muted">Isi sesuai KTP, tanda tangani pada kotak. Setelah KIRIM, tunggu sistem menyimpan data & membuat surat keanggotaan di atas sampaih data siap "Download pdf".</p>
         <form id="formPendaftaran">
           <div class="row">
             <div>
@@ -94,7 +94,7 @@
             </div>
           </div>
           <label>Alamat Lengkap</label>
-          <textarea name="alamat" required placeholder="Alamat sesuai KTP"></textarea>
+          <textarea name="alamat" required placeholder="Alamat sesuai KTP Jangan di singkat"></textarea>
           <div class="row">
             <div>
               <label>Tempat Lahir</label>
@@ -133,8 +133,8 @@
           <h3>Download Surat Keanggotaan</h3>
           <p id="resultText" class="muted">Surat siap Download.</p>
           <div class="tools">
-            <button class="btn" id="btnPreview">Preview</button>
-            <button class="btn" id="btnDownloadPNG">Download PNG</button>
+            <button class="btn" id="btnPreview"></button>
+            <button class="btn" id="btnDownloadPNG"></button>
             <button class="btn" id="btnDownloadPDF">Download PDF</button>
           </div>
           <div style="margin-top:10px" class="hidden" id="previewWrap"><canvas id="previewCanvas" style="max-width:100%"></canvas></div>
@@ -255,7 +255,7 @@
 
       // kirim ke Apps Script
       const status = document.getElementById('status');
-      status.textContent = 'Mengirim ke Spreadsheet…';
+      status.textContent = 'Tunggu data anda sedang di proses';
       try{
         const res = await fetch(API_BASE, {method:'POST', body: JSON.stringify({action:'submit', ...dataGlobal})});
         const json = await res.json();
@@ -263,7 +263,7 @@
       }catch(err){ status.textContent='Tidak dapat terhubung ke API (cek API_BASE).'; }
 
       document.getElementById('resultBox').classList.remove('hidden');
-      document.getElementById('resultText').textContent = `Surat untuk ${dataGlobal.nama} siap diunduh.`;
+      document.getElementById('resultText').textContent = `Surat untuk ${dataGlobal.nama} silahkan download PDF.`;
     });
 
     // gambar ke kanvas template
