@@ -51,6 +51,53 @@
 }
 
   </style>
+	  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      width: 100%;
+      background: #004aad; /* warna banner */
+      color: white;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+
+    .tabs .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px; /* biar konten tetap rapi */
+      margin: auto;
+    }
+
+    .tabs img {
+      height: 60px;
+    }
+
+    .tabs button {
+      background: white;
+      border: none;
+      padding: 10px 15px;
+      margin-left: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #004aad;
+      transition: background 0.3s;
+    }
+
+    .tabs button:hover {
+      background: #ddd;
+    }
+
+    .tabs button.active {
+      background: #ffcc00;
+      color: black;
+    }
+  </style>
 </head>
 <body>
   <header>
