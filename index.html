@@ -49,11 +49,11 @@
     /* Tombol daftar */
     .btn {
       position: absolute;
-      bottom: 0px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       padding: 18px 40px;
-      font-size: 12px;
+      font-size: 22px;
       font-weight: bold;
       border: none;
       border-radius: 30px;
@@ -83,7 +83,7 @@
   <div class="phone">
     <div class="screen">
       <!-- Video tutorial -->
-      <video autoplay muted playsinline loop>
+      <video id="tutorialVideo" autoplay muted playsinline loop>
         <source src="sample-video.mp4" type="video/mp4">
         Browser Anda tidak mendukung video.
       </video>
@@ -92,6 +92,21 @@
       <button class="btn" onclick="window.location.href='halaman2.html'">Daftar Sekarang</button>
     </div>
   </div>
+
+  <script>
+    const video = document.getElementById('tutorialVideo');
+
+    function enableSound() {
+      if (!video) return;
+      video.muted = false;   // buka mute
+      video.volume = 1.0;    // pastikan volume full
+      video.play().catch(()=>{});
+      // hanya perlu sekali, jadi hapus listener setelah dipakai
+      document.body.removeEventListener('click', enableSound);
+    }
+
+    // pasang listener klik di seluruh body
+    document.body.addEventListener('click', enableSound);
+  </script>
 </body>
 </html>
-
